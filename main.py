@@ -11,7 +11,6 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         super(ExampleApp, self).__init__()
         self.setupUi(self)
         
-        self.setWindowIcon(QIcon('pythonlogo.png'))
 	
         # Actions
         self.actionQuit.setShortcut('Ctrl+Q')
@@ -41,7 +40,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         self.graphicsView.setScene(scene)
         #pen = QtGui.QPen(QtCore.Qt.green)
 
-        side = 20
+        #side = 20
 
         #for i in range(16):
         #    for j in range(16):
@@ -66,6 +65,11 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         pass
         
     def load_image(self):
+        
+        self.setScene(QGraphicsScene())
+        self.path = QPainterPath()
+        self.item = GraphicsPathItem()
+        self.scene().addItem(self.item)
         pass
     
     def restore_image(self):
