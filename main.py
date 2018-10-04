@@ -45,9 +45,14 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         self.spinBox.setValue(1)
         self.spinBox.setMinimum(1)
         self.comboBox.activated.connect(self.handleActivated)
-        self.comboBox.addItems(['Select a Method', 'Diffusion', 'Diffusion_f', 'Diffusion_c'])
+        self.comboBox.addItems(['Select a Method',
+                                'Diffusion',
+                                'Diffusion_f',
+                                'Diffusion_c',
+                                'Perona_Malik'])
         self.pushButton.clicked.connect(self.restore_image)
         self.pushButton_2.clicked.connect(self.save_image)
+        self.spinBox.setMaximum(1000)
 
         pixmap = QPixmap(self.file_name)
         self.label_6.setPixmap(pixmap) 
@@ -69,6 +74,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
     def new_simulation(self):
         self.spinBox.setValue(1)
         self.label_5.setText('0.0')
+        self.progressBar.setValue(0)
         self.progressBar.setProperty("value", 0)
         pixmap = QPixmap('white.png')
         self.label_6.setPixmap(pixmap) 
@@ -84,6 +90,8 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         cv2.imwrite(save_name, self.image_restored)
 
     def load_image(self):
+        self.progressBar.setValue(0)
+        self.label_5.setText('0.0')
         ext_options = ['.png', '.jpg', '.bmp']
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
@@ -110,6 +118,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
     def restore_image(self):
         new_ima = QPixmap('temp/white.png')
         self.label_7.setPixmap(new_ima)
+        self.progressBar.setValue(0)
 
         # --- if there is an image to compare with
         if self.checkBox.isChecked() is True:
@@ -129,14 +138,27 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
                     QMessageBox.question(self, 'Error!',
                                          "The file selected is not an image or the format is not supported",
                                          QMessageBox.Ok)
+
+            else:
+                im_comparison = self.file_name
+            self.show()
         else:
             im_comparison = self.file_name
+            self.checkBox.setChecked(False)
 
         if self.comboBox.currentText() != 'Select a Method':
-            # --- do the restoration---
-            for i in range(self.spinBox.value()):
-                ima, xi = image_restorer(self.file_name, self.comboBox.currentText(), im_comparison, plots=False)
+            # ------- do the restoration------
 
+            image = cv2.imread(self.file_name)
+            ima = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            im_comp = cv2.imread(im_comparison)
+            im_comp = cv2.cvtColor(im_comp, cv2.COLOR_BGR2GRAY)
+
+            for i in range(self.spinBox.value()):
+                self.progressBar.setValue(int(100*i/self.spinBox.value()))
+                ima, xi = image_restorer(ima, self.comboBox.currentText(), im_comp, plots=False)
+
+            self.progressBar.setValue(100)
             self.image_restored = ima
             self.label_5.setText(str(xi))
             cv2.imwrite("".join([os.getcwd(), '/temp/', 'temp.png']), ima)
