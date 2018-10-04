@@ -6,10 +6,10 @@ This is a simple project to test different image restoration methods, based on P
 ### Libraries needed
 
 This program was developed using **Python3** and uses the libraries 
-..* Numpy
-..* OpenCv2
-..* Scipy
-..* PyQt5
+⋅⋅* Numpy
+⋅⋅* OpenCv2
+⋅⋅* Scipy
+⋅⋅* PyQt5
 
 ### How to use the GUI
 
