@@ -14,8 +14,8 @@ This program was developed using **Python3** and uses the libraries
 ### How to use the GUI
 
 If you run the program **main.py** it will launch a GUI developed in PyQt5. The steps to follow are the next:
-1. Pres *Ctrl + L* or click the button [...] to load a damaged image or open the menu file and select `Load Image`. The program only supporst *.png*, *.bmp* and *.jpg* formats for the moment. 
-2. Once you have choosen in the box `Load Image` select a method to restore the image. 
+1. Pres *Ctrl + L* or click the button `[...]` to load a damaged image or open the menu file and select `Load Image`. The program only supporst *.png*, *.bmp* and *.jpg* formats for the moment. 
+2. Once you have choosen in the box `Select a Method` select a method to restore the image. 
 3. Select the number of steps on which the restoration method will be iterated. 
 4. If you have the original image before damaged and you want to select the Discrepancy Score, check the box `Compare with original?`
 5. Click `Go` and wait for results. 
