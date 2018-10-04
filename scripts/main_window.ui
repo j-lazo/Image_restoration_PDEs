@@ -243,6 +243,7 @@
     </property>
     <addaction name="actionRestore_Image"/>
     <addaction name="actionSelect_specific_area"/>
+    <addaction name="actionSelect_Method"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -276,6 +277,11 @@
   <action name="actionSelect_specific_area">
    <property name="text">
     <string>Select specific area</string>
+   </property>
+  </action>
+  <action name="actionSelect_Method">
+   <property name="text">
+    <string>Select Method</string>
    </property>
   </action>
  </widget>

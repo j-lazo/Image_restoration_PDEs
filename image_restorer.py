@@ -101,5 +101,12 @@ def restore(image, method):
         kappa = 15
         ima = Perona_Malik(image, dd, delta, kappa)
 
+    elif method == 'Perona_Malik_2':
+
+        dd = np.sqrt(2)
+        delta = 0.14
+        kappa = 15
+        ima = Perona_Malik_2(image, dd, delta, kappa)
+
     return ima
 

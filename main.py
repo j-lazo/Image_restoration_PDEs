@@ -49,7 +49,8 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
                                 'Diffusion',
                                 'Diffusion_f',
                                 'Diffusion_c',
-                                'Perona_Malik'])
+                                'Perona_Malik',
+                                'Perona_Malik_2'])
         self.pushButton.clicked.connect(self.restore_image)
         self.pushButton_2.clicked.connect(self.save_image)
         self.spinBox.setMaximum(1000)
@@ -87,7 +88,9 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
 
     def save_image(self):
         save_name, _ = QFileDialog.getSaveFileName(self, 'Save Image')
-        cv2.imwrite(save_name, self.image_restored)
+        if save_name:
+            cv2.imwrite(save_name, self.image_restored)
+        self.show()
 
     def load_image(self):
         self.progressBar.setValue(0)
