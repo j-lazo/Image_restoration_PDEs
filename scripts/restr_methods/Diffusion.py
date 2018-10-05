@@ -95,7 +95,7 @@ def generate_matrix(n):
     for i in ide:
         i.append(0)
     
-    ide.insert(0,np.zeros(n).tolist())
+    ide.insert(0, np.zeros(n).tolist())
     ide = np.asarray(ide)
     m = a + ide + ide.T
 

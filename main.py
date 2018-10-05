@@ -58,12 +58,12 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         pixmap = QPixmap(self.file_name)
         self.label_6.setPixmap(pixmap) 
         self.label_7.setPixmap(pixmap)
-        self.resize(pixmap.width(),pixmap.height())
+        self.resize(pixmap.width(), pixmap.height())
         self.show()
 
     def close_application(self):
         choice = QMessageBox.question(self, 'Close!',
-                                     "Are you sure you want  to quit?", QMessageBox.Yes |
+                                     "Are you sure you want to quit?", QMessageBox.Yes |
                                      QMessageBox.No)
         if choice == QMessageBox.Yes:
             sys.exit()
@@ -98,7 +98,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         ext_options = ['.png', '.jpg', '.bmp']
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        name, _ = QFileDialog.getOpenFileName(self,"Open", "",
+        name, _ = QFileDialog.getOpenFileName(self, "Open", "",
                                                 "All Files (*);;Python Files (*.py);;PNG (*.png);;JPG (*.jpg);;BMP (*.bmp)", 
                                                 options=options)
         self.file_name = name
@@ -112,7 +112,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
                 self.label_6.setPixmap(pixmap)
                 pixmap1 = QPixmap('images/white.png')
                 self.label_7.setPixmap(pixmap1)
-                self.resize(pixmap.width(),pixmap.height())
+                self.resize(pixmap.width(), pixmap.height())
                 self.show()
         else:
             pass
@@ -157,16 +157,24 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
             im_comp = cv2.imread(im_comparison)
             im_comp = cv2.cvtColor(im_comp, cv2.COLOR_BGR2GRAY)
 
-            for i in range(self.spinBox.value()):
-                self.progressBar.setValue(int(100*i/self.spinBox.value()))
-                ima, xi = image_restorer(ima, self.comboBox.currentText(), im_comp, plots=False)
+            if np.shape(ima) != np.shape(im_comp):
 
-            self.progressBar.setValue(100)
-            self.image_restored = ima
-            self.label_5.setText(str(xi))
-            cv2.imwrite("".join([os.getcwd(), '/temp/', 'temp.png']), ima)
-            new_ima = QPixmap('temp/temp.png')
-            self.label_7.setPixmap(new_ima)
+                QMessageBox.question(self, 'Error!',
+                                     "Error, the image to compare with is not the same size as the image to restore",
+                                     QMessageBox.Ok)
+
+            else:
+
+                for i in range(self.spinBox.value()):
+                    self.progressBar.setValue(int(100*i/self.spinBox.value()))
+                    ima, xi = image_restorer(ima, self.comboBox.currentText(), im_comp, plots=False)
+
+                self.progressBar.setValue(100)
+                self.image_restored = ima
+                self.label_5.setText(str(xi))
+                cv2.imwrite("".join([os.getcwd(), '/temp/', 'temp.png']), ima)
+                new_ima = QPixmap('temp/temp.png')
+                self.label_7.setPixmap(new_ima)
 
         else:
             QMessageBox.question(self, 'Error!',
