@@ -129,12 +129,15 @@ class Ui_MainWindow(object):
         self.actionRestore_Image.setObjectName("actionRestore_Image")
         self.actionSelect_specific_area = QtWidgets.QAction(MainWindow)
         self.actionSelect_specific_area.setObjectName("actionSelect_specific_area")
+        self.actionSelect_Method = QtWidgets.QAction(MainWindow)
+        self.actionSelect_Method.setObjectName("actionSelect_Method")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionLoad_New_Image)
         self.menuFile.addAction(self.actionSave_Image)
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionRestore_Image)
         self.menuEdit.addAction(self.actionSelect_specific_area)
+        self.menuEdit.addAction(self.actionSelect_Method)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
 
@@ -165,4 +168,5 @@ class Ui_MainWindow(object):
         self.actionLoad_New_Image.setText(_translate("MainWindow", "Load New Image"))
         self.actionRestore_Image.setText(_translate("MainWindow", "Restore Image"))
         self.actionSelect_specific_area.setText(_translate("MainWindow", "Select specific area"))
+        self.actionSelect_Method.setText(_translate("MainWindow", "Select Method"))
 
