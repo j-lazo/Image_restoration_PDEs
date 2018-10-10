@@ -64,7 +64,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
                                 'impaint_Perona_Malik'])
         self.pushButton.clicked.connect(self.restore_image)
         self.pushButton_2.clicked.connect(self.save_image)
-        self.spinBox.setMaximum(1000)
+        self.spinBox.setMaximum(100000)
         pixmap = QPixmap(self.file_name)
         self.label_6.setPixmap(pixmap) 
         self.label_7.setPixmap(pixmap)

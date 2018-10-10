@@ -42,8 +42,8 @@ def impaint_Perona_Malik(im, mask):
     mask = mask.astype(np.bool)
     mask_pts = np.array(np.where(mask)).T
     windows = generate_kern()
-    delta = 1
-    kappa = 10
+    delta = 0.1
+    kappa = 15
     nab = [ndimage.filters.convolve(im, w) for w in windows]
     gpm1 = [1 / (1 + (n / kappa) ** 2) for n in nab]
     res = [gpm1[i] * nab[i] for i in range(8)]

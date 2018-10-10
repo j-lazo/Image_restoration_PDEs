@@ -11,12 +11,6 @@ def _get_neighborhood(nd_idx, radius, nd_shape):
     bounds_hi = (nd_idx + radius + 1).clip(max=nd_shape)
     return bounds_lo, bounds_hi
 
-
-def lambd(matr):
-    return
-
-
-
 def biharmonic(img, mask, out, limits):
 
     matrix_unknown = sparse.lil_matrix((np.sum(mask), img.size))
@@ -25,10 +19,8 @@ def biharmonic(img, mask, out, limits):
     mask_i = np.ravel_multi_index(np.where(mask), mask.shape)
     mask_pts = np.array(np.where(mask)).T
 
-    # Iterate over masked points
     for mask_pt_n, mask_pt_idx in enumerate(mask_pts):
 
-        # Get bounded neighborhood of selected radius
         low_lim, hi_lim = _get_neighborhood(mask_pt_idx, 2, img.shape)
 
         neigh_coef = np.zeros(hi_lim - low_lim)
@@ -49,11 +41,9 @@ def biharmonic(img, mask, out, limits):
     flat_diag_image = sparse.dia_matrix((img.flatten(), np.array([0])),
                                         shape=(img.size, img.size))
 
-    # Calculate right hand side as a sum of known matrix's columns
     matrix_known = matrix_known.tocsr()
     rhs = -(matrix_known * flat_diag_image).sum(axis=1)
 
-    # Solve linear system for masked points
     matrix_unknown = matrix_unknown[:, mask_i]
     matrix_unknown = sparse.csr_matrix(matrix_unknown)
     result = spsolve(matrix_unknown, rhs)

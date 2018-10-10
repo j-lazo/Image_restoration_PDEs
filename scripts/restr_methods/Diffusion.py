@@ -102,7 +102,7 @@ def generate_matrix(n):
 
     return m
 
-def get_neighborhood(nd_idx, radius, image)
+def get_neighborhood(nd_idx, radius, image):
     u1 = image[nd_idx[0] + 1, nd_idx[1]]
     u2 = image[nd_idx[0] - 1, nd_idx[1]]
     u3 = image[nd_idx[0], nd_idx[1] + 1]
@@ -122,8 +122,8 @@ def impaint_Diff(image, mask):
 
         u1, u2, u3, u4 = get_neighborhood(mask_pt_idx, 1, image)
         u = (D/dx**2)*np.average([u1, u2, u3, u4]) - 4 * p * int(image[mask_pt_idx[0], mask_pt_idx[1]])
-        im_new[mask_pt_idx[0], mask_pt_idx[1]] = int(u)
+        image[mask_pt_idx[0], mask_pt_idx[1]] = int(u)
 
-    image = image+im_new
+    #image = image+im_new
 
     return image
