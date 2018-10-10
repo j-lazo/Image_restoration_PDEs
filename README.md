@@ -10,7 +10,7 @@ This program was developed using **Python3** and uses the libraries
 * OpenCv2
 * Scipy
 * PyQt5
-* Kkimage
+* Skimage
 ### How to use the GUI
 
 If you run the program **main.py** it will launch a GUI developed in PyQt5. The steps to follow are the next:
@@ -19,6 +19,12 @@ If you run the program **main.py** it will launch a GUI developed in PyQt5. The 
 3. Select the number of steps on which the restoration method will be iterated. 
 4. If you have the original image before damaged and you want to select the Discrepancy Score, check the box `Compare with original?`
 5. Click `Go` and wait for results. 
+
+### IMPORTANT
+* The methods for Image impainting, i.e. `impaint_Diff`, `biharmonic_impainting` and `impaint_Perona_Malik`  only work if they have the original image to compare with, reason for which the option `Compare with original?`must be selected. 
+* The region selection is now added but it still have flaws with image of sizes of less than 300x300 pixels. 
+* Full size screen present some bugs
+
 
  
 
