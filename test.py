@@ -4,6 +4,7 @@ import os
 import cv2
 from matplotlib import pyplot as plt
 
+
 def main():
 
     cur_dir = os.getcwd()
@@ -28,6 +29,7 @@ def main():
         plt.figure()
         plt.imshow(imap, cmap='gray')
         plt.show()
+
 
 if __name__ == '__main__':
     main()
