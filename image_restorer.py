@@ -10,34 +10,45 @@ from scripts.restr_methods.image_imp import biharmonic_impainting
 import matplotlib.pylab as plt
 
 
-def image_restorer(image_name, method, impaint, im_compare, region=[], plots=True):
+def image_restorer(image_n, method, impaint, image_mask, region=[], plots=True):
+    
+    """
+    General function where the image and methods and managed
+    :param image_n: the image in array form
+    :param method: method to apply to the image
+    :param impaint: if the operation to perform is impainting
+    :param image_mask: mask if needed in the operation
+    :param region: if only a region is selected in the form [x_min, y_min, x_max, y_max]
+    :param plots: if plots needed will pop-up in a different window
+    :return: the image restored according to the method selected and the value of xi for image painting
+    """
 
+    # if the operation to perform is painting in the missing regions
     if impaint is True:
-        #mask = im_compare - image_name
-        mask = im_compare
-        im = impaint_f(image_name, mask, method)
 
-        # Calculate Xi
+        mask = image_mask
+        im = impaint_f(image_n, mask, method)
+
+        # -----Calculate Xi----
         en = np.count_nonzero(mask)
         if en == 1 or en == 0:
             en = 1.001
 
         sigma_sqr = (1/(en -1) * np.sum(mask - (np.sum(mask))/en) ** 2)
-        xi = ((1/en)*(np.sum(image_name - mask)**2)) / sigma_sqr
+        xi = ((1/en)*(np.sum(image_n - mask)**2)) / sigma_sqr
 
     else:
 
-        im = copy.copy(image_name)
-        im_comp = im_compare
-        if region != []:
+        im = copy.copy(image_n)
+
+        if region!= []:
+
             if len(im.shape) < 3:
-                # im_r = im[region[1]:region[3], region[0]:region[2]]
-                im_r = restore(im_r, method)
-                # im[region[1]:region[3], region[0]:region[2]] = im_r
-                # cv2.rectangle(im, (region[0], region[1]), (region[2], region[3]), (0, 211, 211), 1)
+                im = restore(image_n, method)
 
             else:
-
+                # 2DO: implement the method also for RGB images
+                # separation in RGB,
                 Y = np.arange(im.shape[0])
                 X = np.arange(im.shape[1])
                 X, Y = np.meshgrid(X, Y)
@@ -65,7 +76,7 @@ def image_restorer(image_name, method, impaint, im_compare, region=[], plots=Tru
                 Z2 = restore(Z1, method)
                 Z3 = restore(Z1, method)
 
-        xi = 0.0
+        xi = 1.0
 
         if plots is True:
             Y = np.arange(im.shape[0])
@@ -83,6 +94,14 @@ def image_restorer(image_name, method, impaint, im_compare, region=[], plots=Tru
 
 def impaint_f(image, mask, method):
 
+    """
+    If impainting is selected, applys the method selected
+    :param image: image in array form
+    :param mask: mask
+    :param method: the method to apply for impainting
+    :return: the array after the operation
+    """
+
     if method == 'impaint_Diff':
         ima = impaint_Diff(image, mask)
 
@@ -96,6 +115,13 @@ def impaint_f(image, mask, method):
 
 
 def restore(image, method):
+
+    """
+    the function restore should be used if what your image have is noise
+    :param image: image in array form
+    :param method: the method to apply for impainting
+    :return: the array after the operation
+    """
     ima = image
 
     if method == 'Diffusion':

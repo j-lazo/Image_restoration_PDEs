@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QFileDialog, QApplication, QVBoxLayout, QSizePolicy,
 
 
 class ExampleApp(QMainWindow, design.Ui_MainWindow):
+
     def __init__(self):
         super(ExampleApp, self).__init__()
         self.setupUi(self)
@@ -53,6 +54,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         self.spinBox.setValue(1)
         self.spinBox.setMinimum(1)
         self.comboBox.activated.connect(self.handleActivated)
+        # the restore and imapinting functions avialables.
         self.comboBox.addItems(['Select a Method',
                                 'Diffusion',
                                 'Diffusion_f',
@@ -62,6 +64,7 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
                                 'impaint_Diff',
                                 'biharmonic_impainting',
                                 'impaint_Perona_Malik'])
+
         self.pushButton.clicked.connect(self.restore_image)
         self.pushButton_2.clicked.connect(self.save_image)
         self.spinBox.setMaximum(100000)
@@ -70,6 +73,8 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         self.label_7.setPixmap(pixmap)
         self.resize(pixmap.width(), pixmap.height())
         self.show()
+
+    # -----Functions of the GUI -----
 
     def close_application(self):
         choice = QMessageBox.question(self, 'Close!',
@@ -136,6 +141,8 @@ class ExampleApp(QMainWindow, design.Ui_MainWindow):
         #self.show()
 
     def restore_image(self):
+        
+        # the function that calls the restoration function
         new_ima = QPixmap('temp/white.png')
         self.label_7.setPixmap(new_ima)
         self.progressBar.setValue(0)

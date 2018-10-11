@@ -7,8 +7,17 @@ import copy
 import cv2
 from matplotlib import pyplot as plt
 
+
 # --- diffusion with cyclical boundary conditions---
 def Diffusion_c(im, D, dx):
+
+    """
+    The application of diffusion using nested loops and cyclical boundary conditions
+    :param im: Image in array form
+    :param D: Diffusion parameter
+    :return: the array after a step of diffusion
+    """
+
 
     im_var = im.copy()
     for i in range(len(im)):
@@ -48,6 +57,12 @@ def Diffusion_c(im, D, dx):
 
 # ----diffusion using static boundary condition----
 def Difussion(im, D, dx):
+    """
+        The application of diffusion using nested loops and fixed boundary conditions
+        :param im: Image in array form
+        :param D: Diffusion parameter
+        :return: the array after a step of diffusion
+        """
     im_var = im.copy()
     for i in range(1, len(im) - 1):
         for j in range(1, len(im.T) - 1):
@@ -71,6 +86,12 @@ def Difussion(im, D, dx):
 
 # ---diffusion using matrix method---
 def Difussion_f(im, D, dx):
+    """
+        The application of diffusion using Matrix operations and fixed boundary conditions
+        :param im: Image in array form
+        :param D: Diffusion parameter
+        :return: the array after a step of diffusion
+        """
     im_var1 = im.copy()
     im_var2 = im.copy()
 
@@ -88,7 +109,7 @@ def Difussion_f(im, D, dx):
 
     return im
 
-
+# function to generate a matrix for the diffusion in 1D
 def generate_matrix(n):
     a = np.multiply(-2/1, np.identity(n))
     ide = np.multiply(1/1, np.identity(n-1)).tolist()
@@ -111,7 +132,15 @@ def get_neighborhood(nd_idx, radius, image):
     return u1, u2, u3, u4
 
 
+
 def impaint_Diff(image, mask):
+
+    """
+    Impainting using difussion
+    :param image: image to imapaint
+    :param mask: mask of which points are needed to be restored.
+    :return: the image after a step of impainting using diffusion
+    """
     im_new = np.zeros(np.shape(image))
     mask = mask.astype(np.bool)
     D = 1
