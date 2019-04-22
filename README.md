@@ -24,9 +24,26 @@ If you run the program **main.py** it will launch a GUI developed in PyQt5. The 
 * The region selection is now added but it still have flaws with image of sizes of less than 300x300 pixels. 
 * Full size screen present some bugs
 
+## Example of Results
 
+
+![example_1](images/parrot_miss2_reg.jpg)
+
+Image damaged
+
+![example_2](images/parrot_perona_600steps.png)
  
+Imapinting using Perona-Malik for 600 steps 
+ 
+ ![example_3](images/grafitti2.png)
+ 
+ ![example_4](images/perona_landscape2000.png)
+ 
+ Imapinting using Perona-Malik for 3000 steps
 
+![example_5](images/grafitti.png)
 
+![example6](images/perona_landscape0_3000.png)
 
+ Imapinting using Perona-Malik for 3000 steps
 
