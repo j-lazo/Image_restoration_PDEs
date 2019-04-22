@@ -1,5 +1,4 @@
-# Image_restoration_PDEs
-## Image restoration using partial differential equations
+# Image restoration using PDEs
 
 This is a simple project to test different image restoration methods, based on PDEs. The Image restoring method used here are simple diffusion and the Perona-Malik method. To run the programm **main.py**, this will launch a GUI in which you can choose the different options, if you prefer you can also run the script **test.py** and in this one change the parameters of `image_name`, `rest_method` and `steps`. 
 
